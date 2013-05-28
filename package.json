@@ -1,0 +1,43 @@
+{
+  "name": "grunt-grep",
+  "description": "Plugin, that allows to delete lines with certain characters optionally in comments only",
+  "version": "0.1.0",
+  "homepage": "https://github.com/msemenistyi/grunt-version",
+  "author": {
+    "name": "Mykyta Semenistyi",
+    "email": "nikeiwe@gmail.com",
+    "url": "msemenistyi.info"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/msemenistyi/grunt-version.git"
+  },
+  "bugs": {
+    "url": "https://github.com/msemenistyi/grunt-version/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/msemenistyi/grunt-version/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "Gruntfile.js",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.1.1",
+    "grunt-contrib-clean": "~0.4.0",
+    "grunt-contrib-nodeunit": "~0.1.2",
+    "grunt": "~0.4.1"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.1"
+  },
+  "keywords": [
+    "gruntplugin"
+  ]
+}
