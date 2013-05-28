@@ -45,6 +45,6 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', ['clean', 'grep']);
 
-  grunt.registerTask('default', ['jshint']);
+  grunt.registerTask('default', ['jshint', 'grep']);
 
 };
