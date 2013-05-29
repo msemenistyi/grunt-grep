@@ -46,11 +46,15 @@ module.exports = function(grunt) {
       };
       if (typeof pattern === "string"){
         if (ext !== ""){
-          resultPattern = commentPatterns[ext].firstPart + pattern + commentPatterns[ext].endPart;
-          return resultPattern;
+          if (typeof commentPatterns[ext] !== "undefined"){
+            resultPattern = commentPatterns[ext].firstPart + pattern + commentPatterns[ext].endPart;
+          } else {
+            resultPattern = pattern;
+          }
         } else {
-          return pattern;
+          resultPattern = pattern;
         }
+          return resultPattern;
       } else {
         return false;
       }
@@ -72,7 +76,6 @@ module.exports = function(grunt) {
       var lines = src.split(grunt.util.linefeed),
         dest = [],
         pattern = updatePattern(options.pattern, ext);
-        console.log(pattern);
         if (pattern !== false){
           lines.forEach(function(line) {
             if (line.search(pattern) === -1){
