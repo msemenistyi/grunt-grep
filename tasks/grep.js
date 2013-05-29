@@ -15,6 +15,7 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('grep', 'Removes lines containing defined characters.', function() {
 
     var defaultOptions = {
+      multiLine: false,
       commentsOnly: true,
       exclusion: true
     };
@@ -75,13 +76,34 @@ module.exports = function(grunt) {
       }).join(grunt.util.linefeed);
       var lines = src.split(grunt.util.linefeed),
         dest = [],
-        pattern = updatePattern(options.pattern, ext);
+        pattern = updatePattern(options.pattern, ext),
+        endPattern;
+        if (typeof options.endPattern !== "undefined"){
+          endPattern = updatePattern(options.endPattern, ext);
+        }
         if (pattern !== false){
-          lines.forEach(function(line) {
-            if (line.search(pattern) === -1){
-              dest.push(line);
-            }
-          });
+          if (options.multiLine === true){
+            var startedRemoving = false;
+            lines.forEach(function(line) {
+              if (startedRemoving === false){
+                if (line.search(pattern) === -1 ){
+                  dest.push(line);
+                } else{
+                  startedRemoving = true;
+                }
+              } else {
+                if (line.search(endPattern) !== -1 ){
+                  startedRemoving = false;
+                }
+              }
+            });
+          } else {
+            lines.forEach(function(line) {
+              if (line.search(pattern) === -1){
+                dest.push(line);
+              }        
+            });
+          }
           var destText = dest.join(grunt.util.linefeed);
           grunt.file.write(f.dest, destText);
 

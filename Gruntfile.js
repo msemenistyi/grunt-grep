@@ -31,7 +31,9 @@ module.exports = function(grunt) {
           'tmp/boot.css': ['test/fixtures/boot.css'],
         },
         options: {
-          pattern: "not"
+          multiLine: true,
+          pattern: "not",
+          endPattern: "end"
         }
       }
     }
