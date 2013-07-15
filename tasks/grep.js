@@ -1,6 +1,6 @@
 /*
  * grunt-grep
- * https://github.com/msemenistyi/grunt-version
+ * https://github.com/msemenistyi/grunt-grep
  *
  * Copyright (c) 2013 Mykyta Semenistyi
  * Licensed under the MIT license.
@@ -17,14 +17,16 @@ module.exports = function(grunt) {
     var defaultOptions = {
       multiLine: false,
       commentsOnly: true,
-      exclusion: true
+      exclusion: true,
+      startPattern: ':s',
+      endPattern: ':e'
     };
     var task = this;
 
     var options = this.options();
     for (var i = 0; i < defaultOptions ; i++) {
       if (defaultOptions.hasOwnProperty(i)){
-        if (typeof options[i] === "undefined"){
+        if (typeof options[i] === 'undefined'){
           options[i] = defaultOptions[i];
        }
       }
@@ -33,21 +35,29 @@ module.exports = function(grunt) {
     function updatePattern(pattern, ext){
       var commentPatterns = {},
         resultPattern;
-      commentPatterns[".css"] = {
-        firstPart: "\\/\\*.*",
-        endPart: ".*\\*\\/"
+      commentPatterns['.css'] = {
+        firstPart: '\\/\\*.*',
+        endPart: '.*\\*\\/'
       };
-      commentPatterns[".js"] = {
-        firstPart: "\\/\\/",
-        endPart: ""
+      commentPatterns['.js'] = {
+        firstPart: '\\/\\/',
+        endPart: ''
       };
-      commentPatterns[".html"] = {
-        firstPart: "<!--.*",
-        endPart: ".*-->"
+      commentPatterns['.html'] = {
+        firstPart: '<!--.*',
+        endPart: '.*-->'
       };
-      if (typeof pattern === "string"){
-        if (ext !== ""){
-          if (typeof commentPatterns[ext] !== "undefined"){
+      commentPatterns['.styl'] = {
+        firstPart: '\\/\\/',
+        endPart: ''
+      };
+      commentPatterns['.jade'] = {
+        firstPart: '\\/\\/',
+        endPart: ''
+      };
+      if (typeof pattern === 'string'){
+        if (ext !== ''){
+          if (typeof commentPatterns[ext] !== 'undefined'){
             resultPattern = commentPatterns[ext].firstPart + pattern + commentPatterns[ext].endPart;
           } else {
             resultPattern = pattern;
@@ -76,10 +86,12 @@ module.exports = function(grunt) {
       }).join(grunt.util.linefeed);
       var lines = src.split(grunt.util.linefeed),
         dest = [],
-        pattern = updatePattern(options.pattern, ext),
-        endPattern;
-        if (typeof options.endPattern !== "undefined"){
-          endPattern = updatePattern(options.endPattern, ext);
+        pattern;
+        if (options.multiLine === false){
+          pattern = updatePattern(options.pattern, ext);
+        } else {
+          pattern = updatePattern(options.pattern + options.startPattern, ext);
+          endPattern = updatePattern(options.pattern + options.endPattern, ext);
         }
         if (pattern !== false){
           if (options.multiLine === true){
