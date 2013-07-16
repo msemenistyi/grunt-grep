@@ -1,7 +1,7 @@
 {
   "name": "grunt-grep",
   "description": "Plugin, that allows to delete lines with certain characters optionally in comments only",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "homepage": "https://github.com/msemenistyi/grunt-grep",
   "author": {
     "name": "Mykyta Semenistyi",

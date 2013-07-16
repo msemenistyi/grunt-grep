@@ -22,16 +22,20 @@ module.exports = function(grunt) {
     },
 
     clean: {
-      tests: ['tmp'],
+      tests: {
+        src: ['tmp']
+      }
     },
 
     grep: {
-      css: {
+      stylus: {
         files: {
           'tmp/stylus.styl': ['test/fixtures/stylus.styl'],
         },
         options: {
-          pattern: "modern"
+          pattern: 'modern',
+          startPattern: '_s',
+          endPattern: '_e'
         }
       }
     }
