@@ -15,7 +15,6 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('grep', 'Removes lines containing defined characters.', function() {
 
     var defaultOptions = {
-      multiLine: false,
       commentsOnly: true,
       exclusion: true,
       startPattern: ':s',
@@ -24,14 +23,13 @@ module.exports = function(grunt) {
     var task = this;
 
     var options = this.options();
-    for (var i = 0; i < defaultOptions ; i++) {
+    for (var i in defaultOptions) {
       if (defaultOptions.hasOwnProperty(i)){
         if (typeof options[i] === 'undefined'){
           options[i] = defaultOptions[i];
        }
       }
     }
-
     function updatePattern(pattern, ext){
       var commentPatterns = {},
         resultPattern;
@@ -86,36 +84,26 @@ module.exports = function(grunt) {
       }).join(grunt.util.linefeed);
       var lines = src.split(grunt.util.linefeed),
         dest = [],
-        pattern;
-        if (options.multiLine === false){
-          pattern = updatePattern(options.pattern, ext);
-        } else {
-          pattern = updatePattern(options.pattern + options.startPattern, ext);
-          endPattern = updatePattern(options.pattern + options.endPattern, ext);
-        }
+        pattern = updatePattern(options.pattern, ext),
+        startPattern = updatePattern(options.pattern + options.startPattern, ext),
+        endPattern = updatePattern(options.pattern + options.endPattern, ext);
         if (pattern !== false){
-          if (options.multiLine === true){
-            var startedRemoving = false;
-            lines.forEach(function(line) {
-              if (startedRemoving === false){
+          var startedRemoving = false;
+          lines.forEach(function(line) {
+            if (startedRemoving === false){
+              if (line.search(startPattern) === -1 ){
                 if (line.search(pattern) === -1 ){
                   dest.push(line);
-                } else{
-                  startedRemoving = true;
                 }
-              } else {
-                if (line.search(endPattern) !== -1 ){
-                  startedRemoving = false;
-                }
+              } else{
+                startedRemoving = true;
               }
-            });
-          } else {
-            lines.forEach(function(line) {
-              if (line.search(pattern) === -1){
-                dest.push(line);
-              }        
-            });
-          }
+            } else {
+              if (line.search(endPattern) !== -1 ){
+                startedRemoving = false;
+              }
+            }
+          });
           var destText = dest.join(grunt.util.linefeed);
           grunt.file.write(f.dest, destText);
 

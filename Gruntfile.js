@@ -28,12 +28,10 @@ module.exports = function(grunt) {
     grep: {
       css: {
         files: {
-          'tmp/boot.css': ['test/fixtures/boot.css'],
+          'tmp/stylus.styl': ['test/fixtures/stylus.styl'],
         },
         options: {
-          multiLine: true,
-          pattern: "not",
-          endPattern: "end"
+          pattern: "modern"
         }
       }
     }
