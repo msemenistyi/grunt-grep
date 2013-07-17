@@ -82,6 +82,7 @@ module.exports = function(grunt) {
         ext = path.extname(filepath);
         return grunt.file.read(filepath);
       }).join(grunt.util.linefeed);
+      src = grunt.util.normalizelf(src);
       var lines = src.split(grunt.util.linefeed),
         dest = [],
         pattern = updatePattern(options.pattern, ext),
