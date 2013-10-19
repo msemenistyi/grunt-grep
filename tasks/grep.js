@@ -30,60 +30,24 @@ module.exports = function(grunt) {
        }
       }
     }
-    function updatePattern(pattern, ext){
-      var commentPatterns = {},
-        resultPattern;
-      //dictionary of comment symbols for popular file types
-      commentPatterns['.css'] = {
-        firstPart: '\\/\\*.*',
-        endPart: '.*\\*\\/'
-      };
-      commentPatterns['.js'] = {
-        firstPart: '\\/\\/',
-        endPart: ''
-      };
-      commentPatterns['.html'] = {
-        firstPart: '<!--.*',
-        endPart: '.*-->'
-      };
-      commentPatterns['.styl'] = {
-        firstPart: '\\/\\/',
-        endPart: ''
-      };
-      commentPatterns['.jade'] = {
-        firstPart: '\\/\\/',
-        endPart: ''
-      };
-      //trying to build a comment string for a specific file type
-      if (typeof pattern === 'string'){
-        if (ext !== ''){
-          if (typeof commentPatterns[ext] !== 'undefined'){
-            resultPattern = commentPatterns[ext].firstPart + pattern + commentPatterns[ext].endPart;
-          } else {
-            resultPattern = pattern;
-          }
-        } else {
-          resultPattern = pattern;
-        }
-          return resultPattern;
-      } else {
-        return false;
-      }
-    }
 
     //looping through all of the file pairs
     this.files.forEach(function(f) {
       var ext;
       //for multiple source files a folder should be specified as a destination
       if (f.src.length > 1){
-        if (grunt.file.isDir(f.dest)){
+        // several checks for file name in dest instead of folder for multi-line src 
+        if (!grunt.file.isFile(f.dest)){
+          if (f.dest.indexOf('.') !== -1){
+            grunt.log.warn('" ' + f.dest + '" looks like a file name. For multiple source files a folder should be specified. Anyway, such folder is created');
+          }
           f.src.forEach(function(file){
             var srcContent = readFile(file);
             var ext = path.extname(file);
-            grepLines(srcContent, ext, f.dest + path.basename(file));
+            grepLines(srcContent, ext, formDestPath(f.dest, file));
           });
         } else {
-          grunt.fail.warn(f.dest + ' is not an folder. Destination should be an existing folder for multiple source files definition');
+          grunt.fail.warn(f.dest + ' is a file. Destination should be a folder for multiple source files definition');
         }
       } else {
         var filepath = f.src[0];
@@ -101,6 +65,7 @@ module.exports = function(grunt) {
       }
     }
 
+    //go through file and remove lines matching patterns, both single- and multi-line
     function grepLines(src, ext, destFile){
       src = grunt.util.normalizelf(src);
       var lines = src.split(grunt.util.linefeed),
@@ -142,6 +107,56 @@ module.exports = function(grunt) {
         } else {
           grunt.log.warn('Pattern for \'' + task.target + '\' should be a string.');
         }
+    }
+
+    function updatePattern(pattern, ext){
+      var commentPatterns = {},
+        resultPattern;
+      //dictionary of comment symbols for popular file types
+      commentPatterns['.css'] = {
+        firstPart: '\\/\\*.*',
+        endPart: '.*\\*\\/'
+      };
+      commentPatterns['.js'] = {
+        firstPart: '\\/\\/',
+        endPart: ''
+      };
+      commentPatterns['.html'] = {
+        firstPart: '<!--.*',
+        endPart: '.*-->'
+      };
+      commentPatterns['.styl'] = {
+        firstPart: '\\/\\/',
+        endPart: ''
+      };
+      commentPatterns['.jade'] = {
+        firstPart: '\\/\\/',
+        endPart: ''
+      };
+      //trying to build a comment string for a specific file type
+      if (typeof pattern === 'string'){
+        if (ext !== ''){
+          if (typeof commentPatterns[ext] !== 'undefined'){
+            resultPattern = commentPatterns[ext].firstPart + pattern + commentPatterns[ext].endPart;
+          } else {
+            resultPattern = pattern;
+          }
+        } else {
+          resultPattern = pattern;
+        }
+          return resultPattern;
+      } else {
+        return false;
+      }
+    }
+
+    //check if dest is ending with a '/' so that proper folder name could be created
+    function formDestPath (folderName, fileName) {
+      var delimiter = '';
+      if (folderName[folderName.length - 1] !== '/'){
+        delimiter = '/';
+      }
+      return folderName + '/' + path.basename(fileName);
     }
 
   });
