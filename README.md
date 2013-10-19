@@ -20,15 +20,8 @@ grunt.loadNpmTasks('grunt-grep');
 ## The "grep" task
 
 ### Overview
-Create several versions of one file for different environments, needs etc.
-
-### Basic file types supported
-+ css
-+ js
-+ html
-+ styl
-+ jade
-
+Create several versions of one file for different environments, needs etc. Handle several files which not differ much in one file with help of comments. 
+Handle browser-specific features for building different html, css, js or any other files for better user experience by delivering no more instructions than is required. 
 
 In your project's Gruntfile, add a section named `grep` to the data object passed into `grunt.initConfig()`.
 
@@ -48,11 +41,18 @@ grunt.initConfig({
 })
 ```
 
+### Basic file types supported
++ css
++ js
++ html
++ styl
++ jade
+
 ### Options
--**pattern** - pattern for matching lines that should be removed (e.g. 'not_important');
--**startPattern** - grep could remove several lines by looking for opening and ending pattern. By default **:s** (so comment should be '//not_important:s');
--**endPattern** - ending pattern for multi-line support. By default **:e** (so comment should be '//not_important:e');
--**fileOverride** - if grep finds out that dest file exists, it file remove it first. By default **false**.
+- **pattern** - pattern for matching lines that should be removed (e.g. 'not_important');
+- **startPattern** - grep could remove several lines by looking for opening and ending pattern. By default **:s** (so comment should be '//not_important:s');
+- **endPattern** - ending pattern for multi-line support. By default **:e** (so comment should be '//not_important:e');
+- **fileOverride** - if grep finds out that dest file exists, it file remove it first. By default **false**.
 
 ### Usage Examples
 
