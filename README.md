@@ -1,6 +1,6 @@
 # grunt-grep
 
-> Plugin, that allows to delete lines with certain characters in comments
+> Remove lines that match defined patterns within comments sections. Build several versions of file 
 
 ## Getting Started
 This plugin requires Grunt `~0.4.1`
@@ -20,28 +20,84 @@ grunt.loadNpmTasks('grunt-grep');
 ## The "grep" task
 
 ### Overview
+Create several versions of one file for different environments, needs etc.
+
+### Basic file types supported
++ css
++ js
++ html
++ styl
++ jade
+
+
 In your project's Gruntfile, add a section named `grep` to the data object passed into `grunt.initConfig()`.
 
 ```js
 grunt.initConfig({
-  grep: {
-    files: {
-      'tmp/boot.css': ['test/fixtures/boot.css'],
-    },
-    options: {
-      pattern: "" //your pattern that will be excluded from file.
-    }
-  },
+	grep: {
+		production: {
+			files: {
+				'tmp/boot.css': ['test/fixtures/boot.css'], //dest file with lines matching pattern excluded: src files
+				'tmp/styles': ['test/fixtures/*.styl'] //src could be presented as a wildcard, new files with corresponding names will be created in the dest folder
+			},
+			options: {
+				pattern: 'dev' //your pattern that will be excluded from file
+			}
+		}
+	}
 })
 ```
 
 ### Options
++**pattern** - pattern for matching lines that should be removed (e.g. 'not_important')
++**startPattern** - grep could remove several lines by looking for opening and ending pattern. By default **:s** (so comment should be '//not_important:s')
++**endPattern** - ending pattern for multi-line support. By default **:e** (so comment should be '//not_important:e')
++**fileOverride** - if grep finds out that dest file exists, it file remove it first. By default **false**
 
 ### Usage Examples
 
+#### Source files
+*index.html
+```html
+<link rel="stylesheet" href="./style.css"> <!--dev-->
+<link rel="stylesheet" href="http://some.cdn/style.css"> <!--production-->
+```
+*style.css
+```css
+#image{
+	background-image: url("./style.css"); //dev
+	background-image: url("http://some.cdn/style.css"); //production
+}
+```
+
+#### Grunt grep config
+```js
+	grep: {
+		production: {
+			files: {
+				'tmp/': ['./index.html', './style.css']
+			},
+			options: {
+				pattern: 'dev'
+			}
+		}
+	}
+```js
+
+#### Result
+```html
+<link rel="stylesheet" href="http://some.cdn/style.css"> <!--production-->
+```
+*style.css
+```css
+#image{
+	background-image: url("http://some.cdn/style.css"); //production
+}
+```
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
+Versions are assigned according to [SemVer](http://semver.org/) specification. 
 
 ## Release History
 _(Nothing yet)_

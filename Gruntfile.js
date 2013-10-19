@@ -34,8 +34,6 @@ module.exports = function(grunt) {
         },
         options: {
           pattern: 'modern',
-          startPattern: '_s',
-          endPattern: '_e',
           fileOverride: true
         }
       }
