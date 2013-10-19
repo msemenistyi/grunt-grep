@@ -33,6 +33,7 @@ module.exports = function(grunt) {
     function updatePattern(pattern, ext){
       var commentPatterns = {},
         resultPattern;
+      //dictionary of comment symbols for popular file types
       commentPatterns['.css'] = {
         firstPart: '\\/\\*.*',
         endPart: '.*\\*\\/'
@@ -53,6 +54,7 @@ module.exports = function(grunt) {
         firstPart: '\\/\\/',
         endPart: ''
       };
+      //trying to build a comment string for a specific file type
       if (typeof pattern === 'string'){
         if (ext !== ''){
           if (typeof commentPatterns[ext] !== 'undefined'){
@@ -69,29 +71,45 @@ module.exports = function(grunt) {
       }
     }
 
+    //looping through all of the file pairs
     this.files.forEach(function(f) {
-      var ext;
-      var src = f.src.filter(function(filepath) {
-        if (!grunt.file.exists(filepath)) {
-          grunt.log.warn('Source file "' + filepath + '" not found.');
-          return false;
+      var ext, isMultiFile;
+      //for multiple source files a folder should be specified as a destination
+      if (f.src.length > 1){
+        if (grunt.file.isDir(f.dest)){
+          isMultiFile = true;
         } else {
-          return true;
+          grunt.fail.warn(f.dest + ' is not an folder. Destination should be an existing folder for multiple source files definition');
         }
-      }).map(function(filepath) {
-        ext = path.extname(filepath);
-        return grunt.file.read(filepath);
-      }).join(grunt.util.linefeed);
+      } else {
+        var filepath = f.src[0];
+        var srcContent = readFile(filepath);
+        var ext = path.extname(filepath);
+        grepLines(srcContent, ext, f.dest);
+      }
+    });
+
+    function readFile(src){
+      if (!grunt.file.exists(src)) {
+        grunt.fail.warn('Source file "' + src + '" not found.');
+      } else {
+        return grunt.file.read(src);
+      }
+    }
+
+    function grepLines(src, ext, destFile){
       src = grunt.util.normalizelf(src);
       var lines = src.split(grunt.util.linefeed),
-        dest = [],
-        pattern = updatePattern(options.pattern, ext),
-        startPattern = updatePattern(options.pattern + options.startPattern, ext),
-        endPattern = updatePattern(options.pattern + options.endPattern, ext);
+          dest = [],
+          //pattern for one-line grep usage
+          pattern = updatePattern(options.pattern, ext),
+          //patterns for multi-line grep usage
+          startPattern = updatePattern(options.pattern + options.startPattern, ext),
+          endPattern = updatePattern(options.pattern + options.endPattern, ext);
         if (pattern !== false){
-          var startedRemoving = false;
+          var startedRemoving;
           lines.forEach(function(line) {
-            if (startedRemoving === false){
+            if (!startedRemoving){
               if (line.search(startPattern) === -1 ){
                 if (line.search(pattern) === -1 ){
                   dest.push(line);
@@ -106,13 +124,22 @@ module.exports = function(grunt) {
             }
           });
           var destText = dest.join(grunt.util.linefeed);
-          grunt.file.write(f.dest, destText);
+          if (grunt.file.exists(destFile)){
+            if (!options.fileOverride){
+              grunt.fail.warn('File "' + destFile + '" already exists, though is specified as a dest file. ' +
+                'Turn on option "fileOverride" so that old file is removed first.');
+            } else {
+              grunt.file.delete(destFile);
+            }
+          }
+          grunt.file.write(destFile, destText);
 
-          grunt.log.writeln('File "' + f.dest + '" created.');
+          grunt.log.writeln('File "' + destFile + '" created.');
         } else {
           grunt.log.warn('Pattern for \'' + task.target + '\' should be a string.');
         }
-    });
+    }
+
   });
 
 };
