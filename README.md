@@ -49,20 +49,20 @@ grunt.initConfig({
 ```
 
 ### Options
-+**pattern** - pattern for matching lines that should be removed (e.g. 'not_important')
-+**startPattern** - grep could remove several lines by looking for opening and ending pattern. By default **:s** (so comment should be '//not_important:s')
-+**endPattern** - ending pattern for multi-line support. By default **:e** (so comment should be '//not_important:e')
-+**fileOverride** - if grep finds out that dest file exists, it file remove it first. By default **false**
+-**pattern** - pattern for matching lines that should be removed (e.g. 'not_important');
+-**startPattern** - grep could remove several lines by looking for opening and ending pattern. By default **:s** (so comment should be '//not_important:s');
+-**endPattern** - ending pattern for multi-line support. By default **:e** (so comment should be '//not_important:e');
+-**fileOverride** - if grep finds out that dest file exists, it file remove it first. By default **false**.
 
 ### Usage Examples
 
 #### Source files
-*index.html
+*index.html*
 ```html
 <link rel="stylesheet" href="./style.css"> <!--dev-->
 <link rel="stylesheet" href="http://some.cdn/style.css"> <!--production-->
 ```
-*style.css
+*style.css*
 ```css
 #image{
 	background-image: url("./style.css"); //dev
@@ -82,13 +82,14 @@ grunt.initConfig({
 			}
 		}
 	}
-```js
+```
 
 #### Result
+*index.html*
 ```html
 <link rel="stylesheet" href="http://some.cdn/style.css"> <!--production-->
 ```
-*style.css
+*style.css*
 ```css
 #image{
 	background-image: url("http://some.cdn/style.css"); //production
@@ -100,4 +101,5 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 Versions are assigned according to [SemVer](http://semver.org/) specification. 
 
 ## Release History
-_(Nothing yet)_
+
+2013-10-19   v0.3.0   Refactored into procedural style. Added multifile and wildcards support. Added fileOverride option.
