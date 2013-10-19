@@ -30,12 +30,13 @@ module.exports = function(grunt) {
     grep: {
       stylus: {
         files: {
-          'tmp/aasdsd.styl': ['test/fixtures/styl.styl']
+          'tmp/': ['test/fixtures/*.styl']
         },
         options: {
           pattern: 'modern',
           startPattern: '_s',
-          endPattern: '_e'
+          endPattern: '_e',
+          fileOverride: true
         }
       }
     }

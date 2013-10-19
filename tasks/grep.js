@@ -73,11 +73,15 @@ module.exports = function(grunt) {
 
     //looping through all of the file pairs
     this.files.forEach(function(f) {
-      var ext, isMultiFile;
+      var ext;
       //for multiple source files a folder should be specified as a destination
       if (f.src.length > 1){
         if (grunt.file.isDir(f.dest)){
-          isMultiFile = true;
+          f.src.forEach(function(file){
+            var srcContent = readFile(file);
+            var ext = path.extname(file);
+            grepLines(srcContent, ext, f.dest + path.basename(file));
+          });
         } else {
           grunt.fail.warn(f.dest + ' is not an folder. Destination should be an existing folder for multiple source files definition');
         }
