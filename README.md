@@ -1,4 +1,5 @@
 # grunt-grep
+[![Build Status](https://travis-ci.org/msemenistyi/grunt-grep.png)](https://travis-ci.org/msemenistyi/grunt-grep)
 
 > Remove lines that match defined patterns within comments sections. Build several versions of file 
 
