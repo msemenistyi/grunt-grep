@@ -28,15 +28,12 @@ module.exports = function(grunt) {
     },
 
     grep: {
-      stylus: {
-        files: {
-          'tmp/': ['test/fixtures/*.styl']
-        },
-        options: {
-          pattern: 'modern',
-          fileOverride: true
-        }
-      }
+      html: { files: { 'tmp/html_one_line.html': ['test/fixtures/html_one_line.html']}, options: { pattern: 'prod'}},
+      css: { files: {'tmp/css_one_line.css': ['test/fixtures/css_one_line.css']}, options: {pattern: 'public'}}
+    },
+
+    nodeunit: {
+      tests: ['test/*Test.js']
     }
 
   });
@@ -45,8 +42,9 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-nodeunit');
 
-  grunt.registerTask('test', ['clean', 'grep']);
+  grunt.registerTask('test', ['clean', 'grep', 'nodeunit']);
 
   grunt.registerTask('default', ['jshint']);
 
