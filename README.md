@@ -50,10 +50,14 @@ grunt.initConfig({
 + jade
 
 ### Options
-- **pattern** - pattern for matching lines that should be removed (e.g. 'not_important');
-- **startPattern** - grep could remove several lines by looking for opening and ending pattern. By default **:s** (so comment should be '//not_important:s');
-- **endPattern** - ending pattern for multi-line support. By default **:e** (so comment should be '//not_important:e');
-- **fileOverride** - if grep finds out that dest file exists, it file remove it first. By default **false**.
+**pattern** `Type String`
+pattern for matching lines that should be removed (e.g. 'not_important');
+**startPattern** `Type String`
+grep could remove several lines by looking for opening and ending pattern. By default **:s** (so comment should be '//not_important:s');
+**endPattern** `Type String`
+ending pattern for multi-line support. By default **:e** (so comment should be '//not_important:e');
+**fileOverride** `Type Boolean`
+if grep finds out that dest file exists, it file remove it first. By default **false**.
 
 ### Usage Examples
 
@@ -98,7 +102,10 @@ grunt.initConfig({
 ```
 
 ## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
+Feel free to open issues and suppose pull requests.
+
+In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/). Run command `npm test` which is alias for `grunt test`.
+
 Versions are assigned according to [SemVer](http://semver.org/) specification. 
 
 ## Release History
