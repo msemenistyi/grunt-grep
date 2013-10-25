@@ -50,14 +50,14 @@ grunt.initConfig({
 + jade
 
 ### Options
-**pattern** `Type String`
-pattern for matching lines that should be removed (e.g. 'not_important');
-**startPattern** `Type String`
-grep could remove several lines by looking for opening and ending pattern. By default **:s** (so comment should be '//not_important:s');
-**endPattern** `Type String`
-ending pattern for multi-line support. By default **:e** (so comment should be '//not_important:e');
-**fileOverride** `Type Boolean`
-if grep finds out that dest file exists, it file remove it first. By default **false**.
+**pattern** `Type String`  
+pattern for matching lines that should be removed (e.g. 'not_important');  
+**startPattern** `Type String`  
+grep could remove several lines by looking for opening and ending pattern. By default **:s** (so comment should be '//not_important:s');  
+**endPattern** `Type String`  
+ending pattern for multi-line support. By default **:e** (so comment should be '//not_important:e');  
+**fileOverride** `Type Boolean`  
+if grep finds out that dest file exists, it file remove it first. By default **false**.  
 
 ### Usage Examples
 
