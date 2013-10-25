@@ -43,11 +43,11 @@ grunt.initConfig({
 ```
 
 ### Basic file types supported
-+ css
-+ js
-+ html
-+ styl
-+ jade
++ css `/*pattern*/`
++ html `<!--pattern-->`
++ js `//pattern`
++ styl `//pattern`
++ jade `//pattern`
 
 ### Options
 **pattern** `Type String`  
