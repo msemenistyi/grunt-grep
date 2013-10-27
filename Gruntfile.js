@@ -12,7 +12,7 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     jshint: {
-      all: [
+      all: [ 
         'Gruntfile.js',
         'tasks/*.js'
       ],
@@ -40,7 +40,16 @@ module.exports = function(grunt) {
       html_multi_line: { files: { 'tmp/html_multi_line.html': ['test/fixtures/html_multi_line.html']}, options: { pattern: 'old'}},
       css_multi_line: { files: {'tmp/css_multi_line.css': ['test/fixtures/css_multi_line.css']}, options: {pattern: 'old'}},
       jade_multi_line: { files: {'tmp/jade_multi_line.jade': ['test/fixtures/jade_multi_line.jade']}, options: {pattern: 'dev'}},
-      js_multi_line: { files: {'tmp/js_multi_line.js': ['test/fixtures/js_multi_line.js']}, options: {pattern: 'dev'}}
+      js_multi_line: { files: {'tmp/js_multi_line.js': ['test/fixtures/js_multi_line.js']}, options: {pattern: 'dev'}},
+
+      //options
+      start_end_pattern: {
+        files: {'tmp/start_end_pattern.js': ['test/fixtures/start_end_pattern.js']}, 
+        options: {
+          pattern: 'handle_exception',
+          startPattern: '_start',
+          endPattern: '_end'
+        } }
     },
 
     nodeunit: {
