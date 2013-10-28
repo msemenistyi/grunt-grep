@@ -1,7 +1,7 @@
 {
   "name": "grunt-grep",
   "description": "Plugin for creating several versions of files according to the environment needs. Search lines for defined pattern and remove it",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "homepage": "https://github.com/msemenistyi/grunt-grep",
   "author": {
     "name": "Mykyta Semenistyi",

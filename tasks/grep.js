@@ -52,6 +52,9 @@ module.exports = function(grunt) {
       } else {
         // one file processing
         var filepath = f.src[0];
+        if (typeof filepath === 'undefined'){
+          grunt.fail.warn('"' + f.orig.src + '" is not an existing file');
+        }
         var srcContent = readFile(filepath);
         var ext = path.extname(filepath);
         var dest = formFilePath(f.dest, path.basename(filepath));
@@ -140,7 +143,6 @@ module.exports = function(grunt) {
         if (ext !== ''){
           if (typeof commentPatterns[ext] !== 'undefined'){
             resultPattern = commentPatterns[ext].firstPart + '\\s*' + pattern + commentPatterns[ext].endPart;
-            console.log(resultPattern);
           } else {
             resultPattern = pattern;
           }
