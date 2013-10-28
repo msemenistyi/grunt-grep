@@ -64,7 +64,7 @@ ending pattern for multi-line support. (comment should be `//not_important:e`)
 if **grep** finds out that dest file exists, it file remove it first.  
 
 **isDestAFile** `Type: Boolean` *default* **false**   
-when specifying a dest looking like a folder (simply without '.' in name of '/' in the end), **grep** assumes that it's a folder. Though
+when specifying a dest looking like a folder (simply without '.' in name or '/' in the end), **grep** assumes that it's a folder. Though
 it can be mistaken. **True** value will point it.
 
 ### Usage Examples

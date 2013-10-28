@@ -53,12 +53,14 @@ module.exports = function(grunt) {
       },
 
       file_override1: {files: {'tmp/file_override.js': ['test/fixtures/html_one_line.html']},options:{fileOverride: true, pattern: '.'}},
-      file_override2: {files: {'tmp/file_override.js': ['test/fixtures/file_override.js']},options:{fileOverride: true, pattern: '.'}},
+      file_override2: {files: {'tmp/file_override.js': ['test/fixtures/file_override.js']},options:{fileOverride: true, pattern: 'asd'}},
 
       //multi-source
       src_folder_multi_source: {files:{'tmp/src_folder_multi_source': ['test/fixtures/*.css']}, options:{pattern: 'asd'}},
       src_folder_one_source: {files:{'tmp/src_folder_one_source': ['test/fixtures/css_multi_line.css']}, options:{pattern: 'asd'}},
-      src_file_forced: {files:{'tmp/src_file_forced': ['test/fixtures/jade_multi_line.jade']}, options:{pattern: 'asd', isDestAFile: true}}
+      src_file_forced: {files:{'tmp/src_file_forced': ['test/fixtures/jade_multi_line.jade']}, options:{pattern: 'asd', isDestAFile: true}},
+
+      spaces_before_pattern: {files: {'tmp/spaces_before_pattern.js': ['test/fixtures/file_override.js']},options:{pattern: 'pattern'}}
     },
 
     nodeunit: {

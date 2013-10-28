@@ -139,7 +139,8 @@ module.exports = function(grunt) {
       if (typeof pattern === 'string'){
         if (ext !== ''){
           if (typeof commentPatterns[ext] !== 'undefined'){
-            resultPattern = commentPatterns[ext].firstPart + pattern + commentPatterns[ext].endPart;
+            resultPattern = commentPatterns[ext].firstPart + '\\s*' + pattern + commentPatterns[ext].endPart;
+            console.log(resultPattern);
           } else {
             resultPattern = pattern;
           }
