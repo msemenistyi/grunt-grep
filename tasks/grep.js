@@ -12,7 +12,7 @@ module.exports = function(grunt) {
   
   var path = require('path');
 
-  grunt.registerMultiTask('grep', 'Removes lines containing defined characters.', function() {
+  grunt.registerMultiTask('grep', 'Plugin for creating several versions of files according to the environment needs. Search lines for defined pattern and remove it', function() {
 
     var defaultOptions = {
       commentsOnly: true,

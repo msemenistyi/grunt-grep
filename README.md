@@ -118,4 +118,5 @@ Versions are assigned according to [SemVer](http://semver.org/) specification.
 
 ## Release History
 
-2013-10-19   v0.3.0   Refactored into procedural style. Added multifile and wildcards support. Added fileOverride option.
+2013-10-28   v 0.4.0   Added isDestAFile option. Enhaced pattern building. Added tests for majority of functionality.   
+2013-10-19   v 0.3.0   Refactored into procedural style. Added multifile and wildcards support. Added fileOverride option.
