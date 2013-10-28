@@ -50,10 +50,12 @@ module.exports = function(grunt) {
           grunt.fail.warn(f.dest + ' is a file. Destination should be a folder for multiple source files definition');
         }
       } else {
+        // one file processing
         var filepath = f.src[0];
         var srcContent = readFile(filepath);
         var ext = path.extname(filepath);
-        grepLines(srcContent, ext, f.dest);
+        var dest = formFilePath(f.dest, path.basename(filepath));
+        grepLines(srcContent, ext, dest);
       }
     });
 
@@ -156,7 +158,26 @@ module.exports = function(grunt) {
       if (folderName[folderName.length - 1] !== '/'){
         delimiter = '/';
       }
-      return folderName + '/' + path.basename(fileName);
+      return folderName + delimiter + path.basename(fileName);
+    }
+
+    function formFilePath(destFileName, srcFileName){
+      if (typeof destFileName === 'string'){
+        if (!options.isDestAFile){
+          if (destFileName[destFileName.length - 1] === '/'){
+            return formDestPath(destFileName, srcFileName);
+          } else if (destFileName.indexOf('.') === -1){
+            grunt.log.warn('You used "' + destFileName + '" as a dest. I assume this is a folder');
+            return formDestPath(destFileName, srcFileName);
+          } else {
+            return destFileName;
+          }
+        } else {
+          return destFileName;
+        }
+      } else {
+        grunt.fail.warn('Destination should be a string');
+      }
     }
 
   });

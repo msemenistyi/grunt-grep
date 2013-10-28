@@ -56,7 +56,9 @@ module.exports = function(grunt) {
       file_override2: {files: {'tmp/file_override.js': ['test/fixtures/file_override.js']},options:{fileOverride: true, pattern: '.'}},
 
       //multi-source
-      multi_source: {files:{'tmp/multi_source': ['test/fixtures/*.css']}, options:{pattern: 'asd'}}
+      src_folder_multi_source: {files:{'tmp/src_folder_multi_source': ['test/fixtures/*.css']}, options:{pattern: 'asd'}},
+      src_folder_one_source: {files:{'tmp/src_folder_one_source': ['test/fixtures/css_multi_line.css']}, options:{pattern: 'asd'}},
+      src_file_forced: {files:{'tmp/src_file_forced': ['test/fixtures/jade_multi_line.jade']}, options:{pattern: 'asd', isDestAFile: true}}
     },
 
     nodeunit: {

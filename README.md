@@ -50,14 +50,17 @@ grunt.initConfig({
 + jade `//pattern`
 
 ### Options
-**pattern** `Type String`  
+####pattern#### `Type: String`  
 pattern for matching lines that should be removed (e.g. 'not_important');  
-**startPattern** `Type String`  
-grep could remove several lines by looking for opening and ending pattern. By default **:s** (so comment should be '//not_important:s');  
-**endPattern** `Type String`  
-ending pattern for multi-line support. By default **:e** (so comment should be '//not_important:e');  
-**fileOverride** `Type Boolean`  
-if grep finds out that dest file exists, it file remove it first. By default **false**.  
+####startPattern#### `Type: String` *default* **:s**
+**grep** can remove several lines by looking for opening and ending pattern. (comment should be `//not_important:s`);  
+####endPattern#### `Type: String` *default* **:e* 
+ending pattern for multi-line support. (comment should be `//not_important:e`);  
+####fileOverride#### `Type: Boolean` *default* **false**
+if **grep** finds out that dest file exists, it file remove it first.  
+####isDestAFile#### `Type: Boolean` *default* **false** 
+when specifying a dest looking like a folder (simply without '.' in name of '/' in the end), **grep** assumes that it's a folder. Though
+it can be mistaken. **True** value will point it.
 
 ### Usage Examples
 
