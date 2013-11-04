@@ -43,11 +43,11 @@ grunt.initConfig({
 ```
 
 ### Basic file types supported
-+ css `/*pattern*/`
-+ html `<!--pattern-->`
-+ js `//pattern`
-+ styl `//pattern`
-+ jade `//pattern`
++ css `/*@grep pattern*/`
++ html `<!--@grep pattern-->`
++ js `//@grep pattern`
++ styl `//@grep pattern`
++ jade `//@grep pattern`
 
 ### Options
 **pattern**
@@ -55,10 +55,13 @@ grunt.initConfig({
 pattern for matching lines that should be removed (e.g. 'not_important')
 
 **startPattern** `Type: String` *default* **:s**  
-grep can remove several lines by looking for opening and ending pattern. (comment should be `//not_important:s`)
+grep can remove several lines by looking for opening and ending pattern. (comment should be `//@grep not_important:s`)
 
 **endPattern** `Type: String` *default* **:e**  
-ending pattern for multi-line support. (comment should be `//not_important:e`)
+ending pattern for multi-line support. (comment should be `//@grep not_important:e`)
+
+**denotation** `Type: String` *default* **@grep**  
+string which tells grep if he should look at this line. Value could be '' so that each line is looped throw by grep. 
 
 **fileOverride** `Type: Boolean` *default* **false**  
 if **grep** finds out that dest file exists, it file remove it first.  
@@ -67,19 +70,19 @@ if **grep** finds out that dest file exists, it file remove it first.
 when specifying a dest looking like a folder (simply without '.' in name or '/' in the end), **grep** assumes that it's a folder. Though
 it can be mistaken. **True** value will point it.
 
-### Usage Examples
+### Basic Usage
 
 #### Source files
 *index.html*
 ```html
-<link rel="stylesheet" href="./style.css"> <!--dev-->
-<link rel="stylesheet" href="http://some.cdn/style.css"> <!--production-->
+<link rel="stylesheet" href="./style.css"> <!--@grep dev-->
+<link rel="stylesheet" href="http://some.cdn/style.css"> <!--@grep production-->
 ```
 *style.css*
 ```css
 #image{
-	background-image: url("./style.css"); //dev
-	background-image: url("http://some.cdn/style.css"); //production
+	background-image: url("./style.css"); //@grep dev
+	background-image: url("http://some.cdn/style.css"); //@grep production
 }
 ```
 
@@ -100,15 +103,34 @@ it can be mistaken. **True** value will point it.
 #### Result
 *index.html*
 ```html
-<link rel="stylesheet" href="http://some.cdn/style.css"> <!--production-->
+<link rel="stylesheet" href="http://some.cdn/style.css"> <!--@grep production-->
 ```
 *style.css*
 ```css
 #image{
-	background-image: url("http://some.cdn/style.css"); //production
+	background-image: url("http://some.cdn/style.css"); //@grep production
 }
 ```
 
+### Denotation overriding
+
+#### Source files
+*index.html*
+```html
+<link rel="stylesheet" href="./style.css"> <!--@condition dev-->
+<link rel="stylesheet" href="http://some.cdn/style.css"> <!--@condition production-->
+```
+
+#### Grunt condition config
+```js
+	grep: { production: { files: {'tmp/': ['./index.html']}, options: {pattern: 'dev', denotation: '@condition'}}}
+```
+
+#### Result
+*index.html*
+```html
+<link rel="stylesheet" href="http://some.cdn/style.css"> <!--@grep production-->
+```
 ## Contributing
 Feel free to open issues and suppose pull requests.
 
@@ -118,5 +140,6 @@ Versions are assigned according to [SemVer](http://semver.org/) specification.
 
 ## Release History
 
-2013-10-28   v 0.4.0   Added isDestAFile option. Enhaced pattern building. Added tests for majority of functionality.   
-2013-10-19   v 0.3.0   Refactored into procedural style. Added multifile and wildcards support. Added fileOverride option.
+2013-11-04   v 0.5.0   Add denotation option.  
+2013-10-28   v 0.4.0   Add isDestAFile option. Enhac pattern building. Add tests for majority of functionality.  
+2013-10-19   v 0.3.0   Refactor into procedural style. Add multifile and wildcards support. Add fileOverride option.

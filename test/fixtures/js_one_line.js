@@ -4,6 +4,6 @@ try {
   console.log(years.0);
 }
 catch (ex) {
-  console.log("Using bracket notation");
-  console.log(years[0]);
+  console.log("Using bracket notation");//wo pattern
+  console.log(years[0]);// @custom pattern
 }

@@ -4,7 +4,7 @@ exports.grep = {
 	compile: function(test){
 		'use strict';
 
-		test.expect(7);
+		test.expect(8);
 
 		var actual = grunt.file.read('tmp/start_end_pattern.js');
 		var expected = grunt.file.read('test/expected/start_end_pattern.js');
@@ -21,6 +21,10 @@ exports.grep = {
 		test.ok(grunt.file.isFile('tmp/src_folder_one_source/css_multi_line.css'), 'should create files matching patterns for one-source input');
 
 		test.ok(grunt.file.isFile('tmp/src_file_forced'), 'should create files (not folders) if isDestAFile truthy');
+
+		var actual = grunt.file.read('tmp/custom_denotation.js');
+		var expected = grunt.file.read('test/expected/custom_denotation.js');
+		test.equal(expected, actual, 'should override @grep denotation to custom one');
 
 		test.done();
 	}

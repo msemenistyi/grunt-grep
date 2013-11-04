@@ -60,7 +60,9 @@ module.exports = function(grunt) {
       src_folder_one_source: {files:{'tmp/src_folder_one_source': ['test/fixtures/css_multi_line.css']}, options:{pattern: 'asd'}},
       src_file_forced: {files:{'tmp/src_file_forced': ['test/fixtures/jade_multi_line.jade']}, options:{pattern: 'asd', isDestAFile: true}},
 
-      spaces_before_pattern: {files: {'tmp/spaces_before_pattern.js': ['test/fixtures/file_override.js']},options:{pattern: 'pattern'}}
+      spaces_before_pattern: {files: {'tmp/spaces_before_pattern.js': ['test/fixtures/file_override.js']},options:{pattern: 'pattern'}},
+
+      denotation_custon: {files: {'tmp/custom_denotation.js': ['test/fixtures/js_one_line.js']},options:{pattern: 'pattern', denotation: '@custom'}}
     },
 
     nodeunit: {
