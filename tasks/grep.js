@@ -45,7 +45,7 @@ module.exports = function(grunt) {
           }
           f.src.forEach(function(file){
             var srcContent = readFile(file);
-            var ext = path.extname(file);
+            ext = path.extname(file);
             grepLines(srcContent, ext, formDestPath(f.dest, file));
           });
         } else {
@@ -58,7 +58,7 @@ module.exports = function(grunt) {
           grunt.fail.warn('"' + f.orig.src + '" is not an existing file');
         }
         var srcContent = readFile(filepath);
-        var ext = path.extname(filepath);
+        ext = path.extname(filepath);
         var dest = formFilePath(f.dest, path.basename(filepath));
         grepLines(srcContent, ext, dest);
       }
@@ -165,7 +165,7 @@ module.exports = function(grunt) {
             } else {
               //denotation comment pattern building
               if (!commentPatterns[ext].endPart){
-                resultPattern = commentPatterns[ext].firstPart + '\\s*' + options.denotation + '$';
+                resultPattern = commentPatterns[ext].firstPart + '\\s*' + options.denotation + '.*$';
               } else {
                 resultPattern = commentPatterns[ext].firstPart + '\\s*' + options.denotation + '.*' + commentPatterns[ext].endPart + '.*$';
               }

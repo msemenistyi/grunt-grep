@@ -3,12 +3,12 @@ var Element = this.Element = function(tag, props){
 	if (konstructor) return konstructor(props);
 	if (typeof tag != 'string') return document.id(tag).set(props);
 
-	if (!props) props = {}; //@grep pattern
+	if (!props) props = {}; 
 
 	if (!(/^[\w-]+$/).test(tag)){
-		var parsed = Slick.parse(tag).expressions[0][0]; //@grep  pattern
+		var parsed = Slick.parse(tag).expressions[0][0]; 
 		tag = (parsed.tag == '*') ? 'div' : parsed.tag;
-		if (parsed.id && props.id == null) props.id = parsed.id; //@grep spattern
+		if (parsed.id && props.id == null) props.id = parsed.id; 
 
 		var attributes = parsed.attributes;
 		if (attributes) for (var attr, i = 0, l = attributes.length; i < l; i++){
