@@ -1,16 +1,16 @@
-/*new:s*/
+/*@grep new:s*/
 #asdd{
 	width: 10px; 
 	height: 40px;
 }
-/*new:e*/
+/*@grep new:e*/
 
-/*old:s*/
+/*@grep old:s*/
 #asdd{
 	width: 10px; 
 	height: 40px;
 }
-/*old:e*/
+/*@grep old:e*/
 
 .asd{
 	margin: 5%;

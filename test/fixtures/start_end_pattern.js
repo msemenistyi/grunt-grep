@@ -6,7 +6,7 @@ function dataAttr( elem, key, data ) {
 		data = elem.getAttribute( name );
 
 		if ( typeof data === "string" ) {
-			//handle_exception_start
+			//@grep handle_exception_start
 			try {
 				data = data === "true" ? true :
 					data === "false" ? false :
@@ -15,11 +15,11 @@ function dataAttr( elem, key, data ) {
 					rbrace.test( data ) ? JSON.parse( data ) :
 					data;
 			} catch( e ) {}
-			//handle_exception_end
+			//@grep handle_exception_end
 
-			//handle_exception:s
+			//@grep handle_exception:s
 			data_user.set( elem, key, data );
-			//handle_exception:e
+			//@grep handle_exception:e
 		} else {
 			data = undefined;
 		}

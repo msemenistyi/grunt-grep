@@ -2,13 +2,13 @@ doctype 5
 html(lang="en")
   head
     title= pageTitle
-  	//prod:s
+  	//@grep prod:s
     script(type='text/javascript').
       if (foo) {
          bar(1 + 5)
       }
-  	//prod:e
+  	//@grep prod:e
   body
-  	//dev:s
+  	//@grep dev:s
     h1 Jade - node template engine 
-    //dev:e
+    //@grep dev:e

@@ -18,7 +18,8 @@ module.exports = function(grunt) {
       commentsOnly: true,
       exclusion: true,
       startPattern: ':s',
-      endPattern: ':e'
+      endPattern: ':e',
+      denotation: '@grep'
     };
     var task = this;
 
@@ -142,7 +143,7 @@ module.exports = function(grunt) {
       if (typeof pattern === 'string'){
         if (ext !== ''){
           if (typeof commentPatterns[ext] !== 'undefined'){
-            resultPattern = commentPatterns[ext].firstPart + '\\s*' + pattern + commentPatterns[ext].endPart;
+            resultPattern = commentPatterns[ext].firstPart + '\\s*' + options.denotation + '\\s*' + pattern + commentPatterns[ext].endPart;
           } else {
             resultPattern = pattern;
           }

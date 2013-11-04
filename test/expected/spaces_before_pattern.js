@@ -6,7 +6,7 @@ var Element = this.Element = function(tag, props){
 
 	if (!(/^[\w-]+$/).test(tag)){
 		tag = (parsed.tag == '*') ? 'div' : parsed.tag;
-		if (parsed.id && props.id == null) props.id = parsed.id; //spattern
+		if (parsed.id && props.id == null) props.id = parsed.id; //@grep spattern
 
 		var attributes = parsed.attributes;
 		if (attributes) for (var attr, i = 0, l = attributes.length; i < l; i++){

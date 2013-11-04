@@ -1,6 +1,6 @@
 #asdd{
-	width: 10px; /*local*/
-	height: 40px; /*public*/
+	width: 10px; /*@grep local*/
+	height: 40px; /*@grep public*/
 }
 
 .asd{
