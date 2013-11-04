@@ -79,6 +79,6 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', ['clean', 'grep', 'nodeunit']);
 
-  grunt.registerTask('default', ['jshint']);
+  grunt.registerTask('default', ['clean','grep:html_multi_line']);
 
 };

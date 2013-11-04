@@ -19,7 +19,8 @@ module.exports = function(grunt) {
       exclusion: true,
       startPattern: ':s',
       endPattern: ':e',
-      denotation: '@grep'
+      denotation: '@grep',
+      removeDenotationComments: true
     };
     var task = this;
 
@@ -76,6 +77,8 @@ module.exports = function(grunt) {
       src = grunt.util.normalizelf(src);
       var lines = src.split(grunt.util.linefeed),
           dest = [],
+          //pattern for all comments containing denotation
+          denotationPattern = updatePattern(options.pattern, ext, true),
           //pattern for one-line grep usage
           pattern = updatePattern(options.pattern, ext),
           //patterns for multi-line grep usage
@@ -83,16 +86,28 @@ module.exports = function(grunt) {
           endPattern = updatePattern(options.pattern + options.endPattern, ext);
         if (pattern !== false){
           var startedRemoving;
+          //loop over each line looking for either pattern or denotation comments
           lines.forEach(function(line) {
             if (!startedRemoving){
+              //looking for one-line or start of multi-line pattern 
               if (line.search(startPattern) === -1 ){
                 if (line.search(pattern) === -1 ){
-                  dest.push(line);
+                  //looking for denotation comments 
+                  if (options.removeDenotationComments && line.search(denotationPattern) !== -1){
+                    var lineDenotationLess = line.replace(new RegExp(denotationPattern), '');
+                    dest.push(lineDenotationLess);
+                  } else {
+                  if ( line.search(denotationPattern) !== -1){
+                    console.log('line ', line);
+                  }
+                    dest.push(line);
+                  }
                 }
               } else{
                 startedRemoving = true;
               }
             } else {
+              //looking for end of multi-line pattern 
               if (line.search(endPattern) !== -1 ){
                 startedRemoving = false;
               }
@@ -115,9 +130,10 @@ module.exports = function(grunt) {
         }
     }
 
-    function updatePattern(pattern, ext){
+    function updatePattern(pattern, ext, isDenotationPattern){
+
       var commentPatterns = {},
-        resultPattern;
+          resultPattern;
       //dictionary of comment symbols for popular file types
       commentPatterns['.css'] = {
         firstPart: '\\/\\*.*',
@@ -139,11 +155,21 @@ module.exports = function(grunt) {
         firstPart: '\\/\\/',
         endPart: ''
       };
+
       //trying to build a comment string for a specific file type
       if (typeof pattern === 'string'){
         if (ext !== ''){
           if (typeof commentPatterns[ext] !== 'undefined'){
-            resultPattern = commentPatterns[ext].firstPart + '\\s*' + options.denotation + '\\s*' + pattern + commentPatterns[ext].endPart;
+            if (!isDenotationPattern){
+              resultPattern = commentPatterns[ext].firstPart + '\\s*' + options.denotation + '\\s*' + pattern + commentPatterns[ext].endPart;
+            } else {
+              //denotation comment pattern building
+              if (!commentPatterns[ext].endPart){
+                resultPattern = commentPatterns[ext].firstPart + '\\s*' + options.denotation + '$';
+              } else {
+                resultPattern = commentPatterns[ext].firstPart + '\\s*' + options.denotation + '.*' + commentPatterns[ext].endPart + '.*$';
+              }
+            }
           } else {
             resultPattern = pattern;
           }
