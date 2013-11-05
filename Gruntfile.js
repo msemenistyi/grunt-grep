@@ -34,6 +34,7 @@ module.exports = function(grunt) {
       css_one_line: { files: {'tmp/css_one_line.css': ['test/fixtures/css_one_line.css']}, options: {pattern: 'public'}},
       jade_one_line: { files: {'tmp/jade_one_line.jade': ['test/fixtures/jade_one_line.jade']}, options: {pattern: 'prod'}},
       js_one_line: { files: {'tmp/js_one_line.js': ['test/fixtures/js_one_line.js']}, options: {pattern: 'prod'}},
+      custom_ext_one_line: {files: {'tmp/custom_ext_one_line.c': ['test/fixtures/custom_ext_one_line.c']},options:{pattern: 'int_val', removeDenotationComments: false}},
 
       //multi-line
       styl_multi_line: { files: {'tmp/stylus_multi_line.styl': ['test/fixtures/stylus_multi_line.styl']}, options: {pattern: 'prod'}},
@@ -41,6 +42,7 @@ module.exports = function(grunt) {
       css_multi_line: { files: {'tmp/css_multi_line.css': ['test/fixtures/css_multi_line.css']}, options: {pattern: 'old'}},
       jade_multi_line: { files: {'tmp/jade_multi_line.jade': ['test/fixtures/jade_multi_line.jade']}, options: {pattern: 'dev'}},
       js_multi_line: { files: {'tmp/js_multi_line.js': ['test/fixtures/js_multi_line.js']}, options: {pattern: 'dev'}},
+      custom_ext_multi_line: {files: {'tmp/custom_ext_multi_line.c': ['test/fixtures/custom_ext_multi_line.c']},options:{pattern: 'int_val', removeDenotationComments: false}},
 
       //options
       start_end_pattern: {
@@ -65,6 +67,7 @@ module.exports = function(grunt) {
       denotation_custon: {files: {'tmp/custom_denotation.js': ['test/fixtures/js_one_line.js']},options:{pattern: 'pattern', denotation: '@custom'}},
 
       non_removing_denotation: {files: {'tmp/non_removing_denotation.js': ['test/fixtures/js_multi_line.js']},options:{pattern: 'first', removeDenotationComments: false}}
+      
     },
 
     nodeunit: {
@@ -81,6 +84,6 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', ['clean', 'grep', 'nodeunit']);
 
-  grunt.registerTask('default', ['clean','grep:html_multi_line']);
+  grunt.registerTask('default', ['jshint']);
 
 };

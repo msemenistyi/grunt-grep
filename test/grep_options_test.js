@@ -28,7 +28,7 @@ exports.grep = {
 
 		var actual = grunt.file.read('tmp/non_removing_denotation.js');
 		var expected = grunt.file.read('test/expected/non_removing_denotation.js');
-		test.equal(expected, actual, 'should not remove denotatiom if option is false');
+		test.equal(expected, actual, 'should not remove denotation if option is false');
 
 		test.done();
 	}

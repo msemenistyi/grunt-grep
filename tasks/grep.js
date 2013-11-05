@@ -20,6 +20,7 @@ module.exports = function(grunt) {
       startPattern: ':s',
       endPattern: ':e',
       denotation: '@grep',
+      exclude: false,
       removeDenotationComments: true
     };
     var task = this;
@@ -31,6 +32,10 @@ module.exports = function(grunt) {
           options[i] = defaultOptions[i];
        }
       }
+    }
+
+    if (options.exclude && !options.denotation){
+      grunt.fail.warn('Exclude mode cannot be turned on with empty ("") denotation');
     }
 
     //looping through all of the file pairs
