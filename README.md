@@ -66,6 +66,9 @@ string which tells grep if he should look at this line. Value could be '' so tha
 **fileOverride** `Type: Boolean` *default* **false**  
 if **grep** finds out that dest file exists, it file remove it first.  
 
+**removeDenotationComments** `Type: Boolean` *default* **true**  
+tells if all the denotation comments (*//@grep* as a default one) should be removed
+
 **isDestAFile** `Type: Boolean` *default* **false**   
 when specifying a dest looking like a folder (simply without '.' in name or '/' in the end), **grep** assumes that it's a folder. Though
 it can be mistaken. **True** value will point it.

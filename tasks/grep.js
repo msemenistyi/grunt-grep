@@ -97,9 +97,6 @@ module.exports = function(grunt) {
                     var lineDenotationLess = line.replace(new RegExp(denotationPattern), '');
                     dest.push(lineDenotationLess);
                   } else {
-                  if ( line.search(denotationPattern) !== -1){
-                    console.log('line ', line);
-                  }
                     dest.push(line);
                   }
                 }

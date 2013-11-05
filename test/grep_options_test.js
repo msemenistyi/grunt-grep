@@ -4,7 +4,7 @@ exports.grep = {
 	compile: function(test){
 		'use strict';
 
-		test.expect(8);
+		test.expect(9);
 
 		var actual = grunt.file.read('tmp/start_end_pattern.js');
 		var expected = grunt.file.read('test/expected/start_end_pattern.js');
@@ -25,6 +25,10 @@ exports.grep = {
 		var actual = grunt.file.read('tmp/custom_denotation.js');
 		var expected = grunt.file.read('test/expected/custom_denotation.js');
 		test.equal(expected, actual, 'should override @grep denotation to custom one');
+
+		var actual = grunt.file.read('tmp/non_removing_denotation.js');
+		var expected = grunt.file.read('test/expected/non_removing_denotation.js');
+		test.equal(expected, actual, 'should not remove denotatiom if option is false');
 
 		test.done();
 	}

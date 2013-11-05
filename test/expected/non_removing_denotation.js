@@ -10,6 +10,5 @@ try {
   console.log(years.0);
 }
 catch (ex) {
-  console.log("Using bracket notation");//@grep first
   console.log(years[0]);//@grep second
 }
