@@ -61,13 +61,17 @@ grep can remove several lines by looking for opening and ending pattern. (commen
 ending pattern for multi-line support. (comment should be `//@grep not_important:e`)
 
 **denotation** `Type: String` *default* **@grep**  
-string which tells grep if he should look at this line. Value could be '' so that each line is looped throw by grep. 
+string which tells grep if he should look at this line. Value could be '' so that each line is looped throw by grep.   
+**Warning** denotation only works for known file types. for others grep will just look for pattern passed.
 
 **fileOverride** `Type: Boolean` *default* **false**  
 if **grep** finds out that dest file exists, it file remove it first.  
 
 **removeDenotationComments** `Type: Boolean` *default* **true**  
 tells if all the denotation comments (*//@grep* as a default one) should be removed
+
+**exclude** `Type: Boolean` *default* **false*   
+determines if we should delete line with pattern (for false) or all others @grep lines (for true)
 
 **isDestAFile** `Type: Boolean` *default* **false**   
 when specifying a dest looking like a folder (simply without '.' in name or '/' in the end), **grep** assumes that it's a folder. Though
@@ -143,6 +147,7 @@ Versions are assigned according to [SemVer](http://semver.org/) specification.
 
 ## Release History
 
+2013-11-07   v 0.6.0   Add exclude option.   
 2013-11-04   v 0.5.0   Add denotation option.  
-2013-10-28   v 0.4.0   Add isDestAFile option. Enhac pattern building. Add tests for majority of functionality.  
+2013-10-28   v 0.4.0   Add isDestAFile option. Enhance pattern building. Add tests for majority of functionality.  
 2013-10-19   v 0.3.0   Refactor into procedural style. Add multifile and wildcards support. Add fileOverride option.

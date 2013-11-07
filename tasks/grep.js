@@ -46,7 +46,7 @@ module.exports = function(grunt) {
         // several checks for file name in dest instead of folder for multi-line src 
         if (!grunt.file.isFile(f.dest)){
           if (f.dest.indexOf('.') !== -1){
-            grunt.log.warn('" ' + f.dest + '" looks like a file name. For multiple source files a folder should be specified. Anyway, such folder is created');
+            grunt.log.warn('" ' + f.dest + '" looks like a file name. For multiple source files a folder should be specified. Anyway, such folder is created.');
           }
           f.src.forEach(function(file){
             var srcContent = readFile(file);
@@ -54,13 +54,13 @@ module.exports = function(grunt) {
             grepLines(srcContent, ext, formDestPath(f.dest, file));
           });
         } else {
-          grunt.fail.warn(f.dest + ' is a file. Destination should be a folder for multiple source files definition');
+          grunt.fail.warn(f.dest + ' is a file. Destination should be a folder for multiple source files definition.');
         }
       } else {
         // one file processing
         var filepath = f.src[0];
         if (typeof filepath === 'undefined'){
-          grunt.fail.warn('"' + f.orig.src + '" is not an existing file');
+          grunt.fail.warn('"' + f.orig.src + '" is not an existing file.');
         }
         var srcContent = readFile(filepath);
         ext = path.extname(filepath);
@@ -83,12 +83,23 @@ module.exports = function(grunt) {
       var lines = src.split(grunt.util.linefeed),
           dest = [],
           //pattern for all comments containing denotation
-          denotationPattern = updatePattern(options.pattern, ext, true),
+          denotationPattern = updatePattern({
+            pattern: options.pattern, 
+            ext: ext, 
+            isDenotationPattern: true}),
           //pattern for one-line grep usage
-          pattern = updatePattern(options.pattern, ext),
+          pattern = updatePattern({
+            pattern: options.pattern, 
+            ext: ext}),
           //patterns for multi-line grep usage
-          startPattern = updatePattern(options.pattern + options.startPattern, ext),
-          endPattern = updatePattern(options.pattern + options.endPattern, ext);
+          startPattern = updatePattern({
+            pattern:options.pattern, 
+            augmentPattern: options.startPattern,
+            ext: ext}),
+          endPattern = updatePattern({
+            pattern: options.pattern, 
+            augmentPattern: options.endPattern,
+            ext: ext});
         if (pattern !== false){
           var startedRemoving;
           //loop over each line looking for either pattern or denotation comments
@@ -96,16 +107,19 @@ module.exports = function(grunt) {
             if (!startedRemoving){
               //looking for one-line or start of multi-line pattern 
               if (line.search(startPattern) === -1 ){
+              //looking for one-line or start of one-line pattern 
                 if (line.search(pattern) === -1 ){
                   //looking for denotation comments 
                   if (options.removeDenotationComments && line.search(denotationPattern) !== -1){
                     var lineDenotationLess = line.replace(new RegExp(denotationPattern), '');
                     dest.push(lineDenotationLess);
                   } else {
+                    //none of patterns found
                     dest.push(line);
                   }
                 }
               } else{
+                //multi-line found
                 startedRemoving = true;
               }
             } else {
@@ -132,10 +146,10 @@ module.exports = function(grunt) {
         }
     }
 
-    function updatePattern(pattern, ext, isDenotationPattern){
-
+    function updatePattern(data){
       var commentPatterns = {},
-          resultPattern;
+          resultPattern,
+          augmentPattern = data.augmentPattern || '';
       //dictionary of comment symbols for popular file types
       commentPatterns['.css'] = {
         firstPart: '\\/\\*.*',
@@ -159,28 +173,41 @@ module.exports = function(grunt) {
       };
 
       //trying to build a comment string for a specific file type
-      if (typeof pattern === 'string'){
-        if (ext !== ''){
-          if (typeof commentPatterns[ext] !== 'undefined'){
-            if (!isDenotationPattern){
-              resultPattern = commentPatterns[ext].firstPart + '\\s*' + options.denotation + '\\s*' + pattern + commentPatterns[ext].endPart;
+      if (typeof data.pattern === 'string'){
+        if (data.ext !== ''){
+          if (typeof commentPatterns[data.ext] !== 'undefined'){
+            if (!data.isDenotationPattern){
+              if (!options.exclude){
+                resultPattern = commentPatterns[data.ext].firstPart + '\\s*' + options.denotation + '\\s*' + data.pattern + augmentPattern + commentPatterns[data.ext].endPart;
+              } else {
+                //searching for all denotation comments but pattern entered by user
+                resultPattern = '^.*' + commentPatterns[data.ext].firstPart + '\\s*' + options.denotation + '\\s*((?!' +  data.pattern + ').)*' + augmentPattern + commentPatterns[data.ext].endPart + '$';
+              }
             } else {
               //denotation comment pattern building
-              if (!commentPatterns[ext].endPart){
-                resultPattern = commentPatterns[ext].firstPart + '\\s*' + options.denotation + '.*$';
+              if (!commentPatterns[data.ext].endPart){
+                resultPattern = commentPatterns[data.ext].firstPart + '\\s*' + options.denotation + '.*$';
               } else {
-                resultPattern = commentPatterns[ext].firstPart + '\\s*' + options.denotation + '.*' + commentPatterns[ext].endPart + '.*$';
+                resultPattern = commentPatterns[data.ext].firstPart + '\\s*' + options.denotation + '.*' + commentPatterns[data.ext].endPart + '.*$';
               }
             }
           } else {
-            resultPattern = pattern;
+            resultPattern = buildPatternForUnknownFile();
           }
         } else {
-          resultPattern = pattern;
+          resultPattern = buildPatternForUnknownFile();
         }
-          return resultPattern;
+        return resultPattern;
       } else {
         return false;
+      }
+
+      function buildPatternForUnknownFile(){
+        //exclude cannot be truthy when woring with custom ext as denotation is turned off
+        if (options.exclude){
+          grunt.fail.warn('Exclude mode cannot work with custom extension as denotation is turned off.');
+        }
+        return data.pattern + augmentPattern;
       }
     }
 

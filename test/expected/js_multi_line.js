@@ -8,4 +8,5 @@ try {
 catch (ex) {
   console.log("Using bracket notation");
   console.log(years[0]);
+  console.log(years[0]);
 }

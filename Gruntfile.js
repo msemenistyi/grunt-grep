@@ -66,7 +66,9 @@ module.exports = function(grunt) {
 
       denotation_custon: {files: {'tmp/custom_denotation.js': ['test/fixtures/js_one_line.js']},options:{pattern: 'pattern', denotation: '@custom'}},
 
-      non_removing_denotation: {files: {'tmp/non_removing_denotation.js': ['test/fixtures/js_multi_line.js']},options:{pattern: 'first', removeDenotationComments: false}}
+      non_removing_denotation: {files: {'tmp/non_removing_denotation.js': ['test/fixtures/js_multi_line.js']},options:{pattern: 'first', removeDenotationComments: false}},
+
+      exclude_pattern: {files: {'tmp/exclude_pattern.js': ['test/fixtures/js_multi_line.js']},options:{pattern: 'first', exclude: true}}
       
     },
 
