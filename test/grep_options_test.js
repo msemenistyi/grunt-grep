@@ -33,7 +33,7 @@ exports.grep = {
 
 		var actual = grunt.file.read('tmp/exclude_pattern.js');
 		var expected = grunt.file.read('test/expected/exclude_pattern.js');
-		test.equal(expected, actual, 'should remove lines matching denotation pattern but declarated as "pattern"');
+		test.equal(expected, actual, 'should work for exclude option: remove lines matching denotation pattern but declarated as "pattern"');
 
 		test.done();
 	}

@@ -68,8 +68,7 @@ module.exports = function(grunt) {
 
       non_removing_denotation: {files: {'tmp/non_removing_denotation.js': ['test/fixtures/js_multi_line.js']},options:{pattern: 'first', removeDenotationComments: false}},
 
-      exclude_pattern: {files: {'tmp/exclude_pattern.js': ['test/fixtures/js_multi_line.js']},options:{pattern: 'first', exclude: true}}
-      
+      exclude_pattern: {files: {'tmp/exclude_pattern.js': ['test/fixtures/exclude_pattern.js']},options:{pattern: 'hour', exclude: true}},
     },
 
     nodeunit: {

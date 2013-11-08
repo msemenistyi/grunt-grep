@@ -70,7 +70,7 @@ if **grep** finds out that dest file exists, it file remove it first.
 **removeDenotationComments** `Type: Boolean` *default* **true**  
 tells if all the denotation comments (*//@grep* as a default one) should be removed
 
-**exclude** `Type: Boolean` *default* **false*   
+**exclude** `Type: Boolean` *default* **false**   
 determines if we should delete line with pattern (for false) or all others @grep lines (for true)
 
 **isDestAFile** `Type: Boolean` *default* **false**   

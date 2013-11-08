@@ -181,7 +181,7 @@ module.exports = function(grunt) {
                 resultPattern = commentPatterns[data.ext].firstPart + '\\s*' + options.denotation + '\\s*' + data.pattern + augmentPattern + commentPatterns[data.ext].endPart;
               } else {
                 //searching for all denotation comments but pattern entered by user
-                resultPattern = '^.*' + commentPatterns[data.ext].firstPart + '\\s*' + options.denotation + '\\s*((?!' +  data.pattern + ').)*' + augmentPattern + commentPatterns[data.ext].endPart + '$';
+                resultPattern = '^.*' + commentPatterns[data.ext].firstPart + '\\s*' + options.denotation + '\\s*((?!' +  data.pattern + ').)*' + augmentPattern + commentPatterns[data.ext].endPart + '\\s*$';
               }
             } else {
               //denotation comment pattern building
