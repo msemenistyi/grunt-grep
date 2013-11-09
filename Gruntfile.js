@@ -32,6 +32,7 @@ module.exports = function(grunt) {
       tag_comment_one_line: { files: { 'tmp/tag_comment_one_line.html': ['test/fixtures/tag_comment_one_line.html']}, options: { pattern: 'prod'}},
       slash_asterisk_one_line: { files: {'tmp/slash_asterisk_one_line.css': ['test/fixtures/slash_asterisk_one_line.css']}, options: {pattern: 'public'}},
       slash_slash_one_line: { files: {'tmp/slash_slash_one_line.js': ['test/fixtures/slash_slash_one_line.js']}, options: {pattern: 'prod'}},
+      custom_pattern: { files: {'tmp/custom_pattern': ['test/fixtures/custom_pattern']}, options: {pattern: 'js', isDestAFile: true}},
 
       //multi-line
       tag_comment_multi_line: { files: { 'tmp/tag_comment_multi_line.html': ['test/fixtures/tag_comment_multi_line.html']}, options: { pattern: 'old'}},
@@ -64,6 +65,8 @@ module.exports = function(grunt) {
       non_removing_denotation: {files: {'tmp/non_removing_denotation.js': ['test/fixtures/slash_slash_multi_line.js']},options:{pattern: 'first', removeDenotationComments: false}},
 
       exclude_pattern: {files: {'tmp/exclude_pattern.js': ['test/fixtures/exclude_pattern.js']},options:{pattern: 'hour', exclude: true}},
+
+      known_comment_type: {files: {'tmp/known_comment_type.asd': ['test/fixtures/known_comment_type.asd']},options:{pattern: 'first', commentType: 'slash_slash'}}
     },
 
     nodeunit: {

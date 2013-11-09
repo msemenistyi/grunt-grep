@@ -18,7 +18,6 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('grep', 'Plugin for creating several versions of files according to the environment needs. Search lines for defined pattern and remove it', function() {
 
     var defaultOptions = {
-      commentsOnly: true,
       exclusion: true,
       startPattern: ':s',
       endPattern: ':e',
@@ -151,7 +150,8 @@ module.exports = function(grunt) {
 
     function updatePattern(data){
       var augmentPattern = data.augmentPattern || '',
-          resultPattern;
+          resultPattern,
+          commentPattern;
 
       var buildPatternForUnknownFile = function buildPatternForUnknownFile(){
         //exclude cannot be truthy when woring with custom ext as denotation is turned off
@@ -163,10 +163,17 @@ module.exports = function(grunt) {
 
       //trying to build a comment string for a specific file type
       if (typeof data.pattern === 'string'){
+        if (options.commentType){
+          if (commentTypes[options.commentType]){
+            commentPattern = commentTypes[options.commentType];
+          } else {
+            grunt.fail.warn('"' + options.commentType + '" is not a known comment type');
+          }
+        }
         if (data.ext !== ''){
           //checking if we have such extension in file types hash
           if (typeof fileTypes[data.ext] !== 'undefined'){
-            var commentPattern = commentTypes[fileTypes[data.ext]];
+            commentPattern = commentPattern || commentTypes[fileTypes[data.ext]];
             if (!data.isDenotationPattern){
               if (!options.exclude){
                 resultPattern = commentPattern.firstPart + '\\s*' + options.denotation + '\\s*' + data.pattern + augmentPattern + '\\s*' + commentPattern.endPart;

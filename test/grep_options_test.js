@@ -4,7 +4,7 @@ exports.grep = {
 	compile: function(test){
 		'use strict';
 
-		test.expect(10);
+		test.expect(11);
 
 		var actual = grunt.file.read('tmp/start_end_pattern.js');
 		var expected = grunt.file.read('test/expected/start_end_pattern.js');
@@ -30,10 +30,13 @@ exports.grep = {
 		var expected = grunt.file.read('test/expected/non_removing_denotation.js');
 		test.equal(expected, actual, 'should not remove denotation if option is false');
 
-
 		var actual = grunt.file.read('tmp/exclude_pattern.js');
 		var expected = grunt.file.read('test/expected/exclude_pattern.js');
 		test.equal(expected, actual, 'should work for exclude option: remove lines matching denotation pattern but declarated as "pattern"');
+
+		var actual = grunt.file.read('tmp/known_comment_type.asd');
+		var expected = grunt.file.read('test/expected/known_comment_type.asd');
+		test.equal(expected, actual, 'should work for known comment type options');
 
 		test.done();
 	}

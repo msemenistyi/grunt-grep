@@ -77,6 +77,9 @@ tells if all the denotation comments (*//@grep* as a default one) should be remo
 **exclude** `Type: Boolean` *default* **false**   
 determines if we should delete line with pattern (for false) or all others @grep lines (for true)
 
+**commentType** `Type: Boolean` *default* **undefined**   
+point the grep to which comment type pattern to apply to this file. Overrides extension-defined pattern. Possible values: `slash_asterisk, slash_slash, tag_comment, sharp, dash_dash, single_quote`
+
 **isDestAFile** `Type: Boolean` *default* **false**   
 when specifying a dest looking like a folder (simply without '.' in name or '/' in the end), **grep** assumes that it's a folder. Though
 it can be mistaken. **True** value will point it.
@@ -143,15 +146,17 @@ it can be mistaken. **True** value will point it.
 <link rel="stylesheet" href="http://some.cdn/style.css"> <!--@grep production-->
 ```
 ## Contributing
-Feel free to open issues and suppose pull requests.
+Feel free to open issues and suggest pull requests.
 
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/). Run command `npm test` which is alias for `grunt test`.
+
+Especially appreciated is adding file types and comment types.
 
 Versions are assigned according to [SemVer](http://semver.org/) specification. 
 
 ## Release History
 
-2013-11-09   v 0.7.0   Update comment type for known file type lookup.
+2013-11-09   v 0.7.0   Update comment type for known file type lookup. Add *commentType* options.   
 2013-11-07   v 0.6.0   Add exclude option.   
 2013-11-04   v 0.5.0   Add denotation option.  
 2013-10-28   v 0.4.0   Add isDestAFile option. Enhance pattern building. Add tests for majority of functionality.  
