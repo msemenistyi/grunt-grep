@@ -43,12 +43,14 @@ grunt.initConfig({
 ```
 
 ### Basic comment types supported
-+ **slash_asterisk** /\* \*/: `css, c`
-+ **slash_slash** //:  `.js, .jade, .styl`
++ **slash_asterisk** /\* \*/: `.css, .c, .h` 
++ **slash_slash** //:  `.js, .styl, .jade, .cs, .m, .java, .php`
 + **tag_comment** <!-- -->: `.xml, .html`
-+ **sharp** #: `.cs`
-+ **dash_dash** -- 
-+ **single_quote** ' 
++ **sharp** #: `.coffee, .py, .rb, .sh`
++ **dash_dash** -- `.hs, .sql` 
++ **single_quote** ' `.vb` 
++ **bracket_asterisk** (* *) `.scpt`
++ **equal_sign** = `.pl`
 
 **Warning**  
 Grep works with one line comments. Multi-line support is implemented with help of startPattern and endPattern options.

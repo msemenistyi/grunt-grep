@@ -22,6 +22,14 @@ module.exports.commentTypes = {
 	'single_quote': {
 		firstPart: "\\'",
 		endPart: ""
+	},
+	'bracket_asterisk': {
+		firstPart: "(*",
+		endPart: "*)"
+	}, 
+	'equal_sign' : {
+		firstPart: '=',
+		endPart: ''
 	}
 
 };
@@ -38,6 +46,28 @@ module.exports.fileTypes = {
 
 	//c-comp
 	'.cs': 'slash_slash',
-	'.c': 'slash_asterisk'
+	'.c': 'slash_asterisk',
+	'.h': 'slash_asterisk',
+	'.m': 'slash_slash',
 
+	//AppleScript
+	'.scpt': 'bracket_asterisk',
+	//VisualBasic
+	'.vb': 'single_quote',
+	//Haskell
+	'.hs': 'dash_dash',
+	//Java
+	'.java': 'slash_slash',
+	//Perl
+	'.pl': 'equal_sign',
+	//PHP
+	'.php': 'slash_slash',
+	//Python
+	'.py': 'sharp',
+	//Ruby
+	'.rb': 'sharp',
+	//SQL
+	'.sql': 'dash_dash',
+	//Shell
+	'.sh': 'sharp' 
 };
