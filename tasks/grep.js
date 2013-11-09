@@ -10,10 +10,10 @@
 
 module.exports = function(grunt) {
   
-  var path = require('path');
-  var helperHashes = require('./commentTypes');
-  var commentTypes = helperHashes.commentTypes;
-  var fileTypes = helperHashes.fileTypes;
+  var path = require('path'),
+      helperHashes = require('./commentTypes'),
+      commentTypes = helperHashes.commentTypes,
+      fileTypes = helperHashes.fileTypes;
 
   grunt.registerMultiTask('grep', 'Plugin for creating several versions of files according to the environment needs. Search lines for defined pattern and remove it', function() {
 
@@ -150,30 +150,8 @@ module.exports = function(grunt) {
     }
 
     function updatePattern(data){
-      var commentPatterns = {},
-          resultPattern,
-          augmentPattern = data.augmentPattern || '';
-      //dictionary of comment symbols for popular file types
-      commentPatterns['.css'] = {
-        firstPart: '\\/\\*.*',
-        endPart: '.*\\*\\/'
-      };
-      commentPatterns['.js'] = {
-        firstPart: '\\/\\/',
-        endPart: ''
-      };
-      commentPatterns['.html'] = {
-        firstPart: '<!--.*',
-        endPart: '.*-->'
-      };
-      commentPatterns['.styl'] = {
-        firstPart: '\\/\\/',
-        endPart: ''
-      };
-      commentPatterns['.jade'] = {
-        firstPart: '\\/\\/',
-        endPart: ''
-      };
+      var augmentPattern = data.augmentPattern || '',
+          resultPattern;
 
       var buildPatternForUnknownFile = function buildPatternForUnknownFile(){
         //exclude cannot be truthy when woring with custom ext as denotation is turned off
@@ -186,20 +164,22 @@ module.exports = function(grunt) {
       //trying to build a comment string for a specific file type
       if (typeof data.pattern === 'string'){
         if (data.ext !== ''){
-          if (typeof commentPatterns[data.ext] !== 'undefined'){
+          //checking if we have such extension in file types hash
+          if (typeof fileTypes[data.ext] !== 'undefined'){
+            var commentPattern = commentTypes[fileTypes[data.ext]];
             if (!data.isDenotationPattern){
               if (!options.exclude){
-                resultPattern = commentPatterns[data.ext].firstPart + '\\s*' + options.denotation + '\\s*' + data.pattern + augmentPattern + commentPatterns[data.ext].endPart;
+                resultPattern = commentPattern.firstPart + '\\s*' + options.denotation + '\\s*' + data.pattern + augmentPattern + '\\s*' + commentPattern.endPart;
               } else {
                 //searching for all denotation comments but pattern entered by user
-                resultPattern = '^.*' + commentPatterns[data.ext].firstPart + '\\s*' + options.denotation + '\\s*((?!' +  data.pattern + ').)*' + augmentPattern + commentPatterns[data.ext].endPart + '\\s*$';
+                resultPattern = '^.*' + commentPattern.firstPart + '\\s*' + options.denotation + '\\s*((?!' +  data.pattern + ').)*' + augmentPattern + '\\s*' + commentPattern.endPart + '\\s*$';
               }
             } else {
               //denotation comment pattern building
-              if (!commentPatterns[data.ext].endPart){
-                resultPattern = commentPatterns[data.ext].firstPart + '\\s*' + options.denotation + '.*$';
+              if (!commentPattern.endPart){
+                resultPattern = commentPattern.firstPart + '\\s*' + options.denotation + '.*$';
               } else {
-                resultPattern = commentPatterns[data.ext].firstPart + '\\s*' + options.denotation + '.*' + commentPatterns[data.ext].endPart + '.*$';
+                resultPattern = commentPattern.firstPart + '\\s*' + options.denotation + '.*' + commentPattern.endPart + '.*$';
               }
             }
           } else {

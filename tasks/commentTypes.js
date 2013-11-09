@@ -1,7 +1,7 @@
 module.exports.commentTypes = {
 	'slash_asterisk': {
-		firstPart : '\\/\\*.*',
-		endPart: '.*\\*\\/'
+		firstPart : '\\/\\*',
+		endPart: '\\*\\/'
 	},
 	'slash_slash': {
 		firstPart: '\\/\\/',
