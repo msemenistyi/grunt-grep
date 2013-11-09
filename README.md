@@ -46,11 +46,11 @@ grunt.initConfig({
 + **slash_asterisk** /\* \*/: `.css, .c, .h` 
 + **slash_slash** //:  `.js, .styl, .jade, .cs, .m, .java, .php`
 + **tag_comment** <!-- -->: `.xml, .html`
-+ **sharp** #: `.coffee, .py, .rb, .sh`
++ **sharp** #: `.coffee, .py, .rb, .sh, .pl`
 + **dash_dash** -- `.hs, .sql` 
 + **single_quote** ' `.vb` 
 + **bracket_asterisk** (* *) `.scpt`
-+ **equal_sign** = `.pl`
++ **equal_sign** =
 
 **Warning**  
 Grep works with one line comments. Multi-line support is implemented with help of startPattern and endPattern options.

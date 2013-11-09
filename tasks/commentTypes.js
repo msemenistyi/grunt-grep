@@ -8,8 +8,8 @@ module.exports.commentTypes = {
 		endPart: ''		
 	},
 	'tag_comment': {
-		firstPart: '<!--.*',
-		endPart: '.*-->'
+		firstPart: '<!--',
+		endPart: '-->'
 	},
 	'sharp': {
 		firstPart: '#',
@@ -24,8 +24,8 @@ module.exports.commentTypes = {
 		endPart: ""
 	},
 	'bracket_asterisk': {
-		firstPart: "(*",
-		endPart: "*)"
+		firstPart: '\\(\\*',
+		endPart: '\\*\\)'
 	}, 
 	'equal_sign' : {
 		firstPart: '=',
@@ -59,7 +59,7 @@ module.exports.fileTypes = {
 	//Java
 	'.java': 'slash_slash',
 	//Perl
-	'.pl': 'equal_sign',
+	'.pl': 'sharp',
 	//PHP
 	'.php': 'slash_slash',
 	//Python

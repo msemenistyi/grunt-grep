@@ -29,9 +29,15 @@ module.exports = function(grunt) {
 
     grep: {
       //one-line
-      tag_comment_one_line: { files: { 'tmp/tag_comment_one_line.html': ['test/fixtures/tag_comment_one_line.html']}, options: { pattern: 'prod'}},
       slash_asterisk_one_line: { files: {'tmp/slash_asterisk_one_line.css': ['test/fixtures/slash_asterisk_one_line.css']}, options: {pattern: 'public'}},
       slash_slash_one_line: { files: {'tmp/slash_slash_one_line.js': ['test/fixtures/slash_slash_one_line.js']}, options: {pattern: 'prod'}},
+      tag_comment_one_line: { files: { 'tmp/tag_comment_one_line.html': ['test/fixtures/tag_comment_one_line.html']}, options: { pattern: 'prod'}},
+      sharp: { files: { 'tmp/sharp.coffee': ['test/fixtures/sharp.coffee']}, options: { pattern: 'prod'}},
+      dash_dash: { files: { 'tmp/dash_dash.hs': ['test/fixtures/dash_dash.hs']}, options: { pattern: 'Using'}},
+      single_quote: { files: { 'tmp/single_quote.vb': ['test/fixtures/single_quote.vb']}, options: { pattern: 'mob'}},
+      bracket_asterisk: { files: { 'tmp/bracket_asterisk.scpt': ['test/fixtures/bracket_asterisk.scpt']}, options: { pattern: 'ios'}},
+      equal_sign: { files: { 'tmp/equal_sign.pl': ['test/fixtures/equal_sign.pl']}, options: { pattern: 'dev', commentType: 'equal_sign'}},
+
       custom_pattern: { files: {'tmp/custom_pattern': ['test/fixtures/custom_pattern']}, options: {pattern: 'js', isDestAFile: true}},
 
       //multi-line
