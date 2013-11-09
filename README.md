@@ -49,6 +49,9 @@ grunt.initConfig({
 + styl `//@grep pattern`
 + jade `//@grep pattern`
 
+**Warning**  
+Grep works with one line comments. Multi-line support is implemented with help of startPattern and endPattern options.
+
 ### Options
 **pattern**
 `Type: String`  

@@ -11,6 +11,9 @@
 module.exports = function(grunt) {
   
   var path = require('path');
+  var helperHashes = require('./commentTypes');
+  var commentTypes = helperHashes.commentTypes;
+  var fileTypes = helperHashes.fileTypes;
 
   grunt.registerMultiTask('grep', 'Plugin for creating several versions of files according to the environment needs. Search lines for defined pattern and remove it', function() {
 
@@ -172,6 +175,14 @@ module.exports = function(grunt) {
         endPart: ''
       };
 
+      var buildPatternForUnknownFile = function buildPatternForUnknownFile(){
+        //exclude cannot be truthy when woring with custom ext as denotation is turned off
+        if (options.exclude){
+          grunt.fail.warn('Exclude mode cannot work with custom extension as denotation is turned off.');
+        }
+        return data.pattern + augmentPattern;
+      };
+
       //trying to build a comment string for a specific file type
       if (typeof data.pattern === 'string'){
         if (data.ext !== ''){
@@ -200,14 +211,6 @@ module.exports = function(grunt) {
         return resultPattern;
       } else {
         return false;
-      }
-
-      function buildPatternForUnknownFile(){
-        //exclude cannot be truthy when woring with custom ext as denotation is turned off
-        if (options.exclude){
-          grunt.fail.warn('Exclude mode cannot work with custom extension as denotation is turned off.');
-        }
-        return data.pattern + augmentPattern;
       }
     }
 
