@@ -31,6 +31,7 @@ module.exports.fileTypes = {
 	'.css': 'slash_asterisk',
 	'.js': 'slash_slash',
 	'.html': 'tag_comment',
+	'.xml': 'tag_comment',
 	'.styl': 'slash_slash',
 	'.jade': 'slash_slash',
 	'.coffee': 'sharp',

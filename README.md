@@ -42,12 +42,13 @@ grunt.initConfig({
 })
 ```
 
-### Basic file types supported
-+ css `/*@grep pattern*/`
-+ html `<!--@grep pattern-->`
-+ js `//@grep pattern`
-+ styl `//@grep pattern`
-+ jade `//@grep pattern`
+### Basic comment types supported
++ **slash_asterisk** /\* \*/: `css, c`
++ **slash_slash** //:  `.js, .jade, .styl`
++ **tag_comment** <!-- -->: `.xml, .html`
++ **sharp** #: `.cs`
++ **dash_dash** -- 
++ **single_quote** ' 
 
 **Warning**  
 Grep works with one line comments. Multi-line support is implemented with help of startPattern and endPattern options.
@@ -150,6 +151,7 @@ Versions are assigned according to [SemVer](http://semver.org/) specification.
 
 ## Release History
 
+2013-11-09   v 0.7.0   Update comment type for known file type lookup.
 2013-11-07   v 0.6.0   Add exclude option.   
 2013-11-04   v 0.5.0   Add denotation option.  
 2013-10-28   v 0.4.0   Add isDestAFile option. Enhance pattern building. Add tests for majority of functionality.  
