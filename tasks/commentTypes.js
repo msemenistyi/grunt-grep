@@ -5,7 +5,7 @@ module.exports.commentTypes = {
 	},
 	'slash_slash': {
 		firstPart: '\\/\\/',
-		endPart: ''		
+		endPart: ''
 	},
 	'tag_comment': {
 		firstPart: '<!--',
@@ -13,7 +13,7 @@ module.exports.commentTypes = {
 	},
 	'sharp': {
 		firstPart: '#',
-		endPart: ''		
+		endPart: ''
 	},
 	'dash_dash': {
 		firstPart: '--',
@@ -26,7 +26,7 @@ module.exports.commentTypes = {
 	'bracket_asterisk': {
 		firstPart: '\\(\\*',
 		endPart: '\\*\\)'
-	}, 
+	},
 	'equal_sign' : {
 		firstPart: '=',
 		endPart: ''
@@ -42,6 +42,7 @@ module.exports.fileTypes = {
 	'.xml': 'tag_comment',
 	'.styl': 'slash_slash',
 	'.jade': 'slash_slash',
+	'.pug': 'slash_slash',
 	'.coffee': 'sharp',
 
 	//c-comp
@@ -69,5 +70,5 @@ module.exports.fileTypes = {
 	//SQL
 	'.sql': 'dash_dash',
 	//Shell
-	'.sh': 'sharp' 
+	'.sh': 'sharp'
 };
